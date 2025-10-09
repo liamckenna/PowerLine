@@ -1,0 +1,58 @@
+name: PowerLine
+version: 1.0
+main: powerline.PL_Main
+api-version: 1.20
+commands:
+  openmenu:
+    description: Opens the test menu
+  jointeama:
+    description: Adds a player to Team Emerald
+    usage: /jointeama <player>
+  jointeamb:
+    description: Adds a player to Team Lapis
+    usage: /jointeamb <player>
+  joinspectators:
+    description: Sets a player to spectator
+    usage: /joinspectators <player>
+  startmatch:
+    description: Begins match of PowerLine
+    usage: /startmatch
+  setmap:
+    description: Sets the map of the next match
+    usage: /setmap <map name>
+  resetmap:
+    description: Wipes placed blocks and floating items from the world
+    usage: /resetmap
+  setgeneratorspeed:
+    description: Set the default number of seconds it takes for generators to drop items - call before a match starts 
+    usage: /setgeneratorspeed <int seconds>
+  setredstonemultiplier:
+    description: Set the speed multiplier for the main redstone generator 
+    usage: /setredstonemultiplier <int multiple>
+  setrespawntime:
+    description: Set the amount of time it takes to respawn
+    usage: /setrespawntime <int seconds>
+  setcountdowntime:
+    description: Set the amount of time it takes for the game to start
+    usage: /setcountdowntime <int seconds>
+  setspawninvincibilitytime:
+    description: Set the amount of time spawn invincibility lasts
+    usage: /setspawninvincibilitytime <int seconds>
+  setgeneratorspeedincrease:
+    description: Set how drastic the generator speed increases every 5 minutes
+    usage: /setgeneratorspeedincrease <int seconds_to_reduce>
+  debugmode:
+    description: Sets the match status to DEBUG
+    usage: /debugmode
+  disabledebug:
+    description: Sets the match status back to WAITING
+    usage: /disabledebug
+  endmatch:
+    description: Ends the match prematurely
+    usage: /endmatch
+  tplobby:
+    description: Teleports the user to lobby
+    usage: /tplobby <player>
+  tpfactory:
+    description: Teleports the user to the map "factory"
+    usage: /tpfactory <player>
