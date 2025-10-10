@@ -369,6 +369,10 @@ public class PL_LobbyManager implements Listener
             break;
             case STARTING:
             case PLAYING:
+            if (PL_GameManager.gm.player_map.containsKey(player))
+            {
+                if (PL_GameManager.gm.player_map.get(player).IsEliminated()) player.setGameMode(GameMode.SPECTATOR);
+            }
             case ENDING:
             if (PL_GameManager.gm.player_map.containsKey(player)) 
             {
@@ -416,6 +420,7 @@ public class PL_LobbyManager implements Listener
             case STARTING:
             break;
             case PLAYING:
+            if (PL_GameManager.gm.player_map.containsKey(player)) if (PL_GameManager.gm.player_map.get(player).team.status == PL_TeamStatus.DISADVANTAGE) PL_GameManager.gm.player_map.get(player).Eliminate();
             if (PL_GameManager.gm.player_map.containsKey(player)) if ((!PL_Helpers.ValidateWithout(PL_GameManager.gm.player_map.get(player)) && PL_GameManager.gm.player_map.get(player).team.status == PL_TeamStatus.DISADVANTAGE)) PL_GameManager.gm.EndMatch(PL_GameManager.gm.player_map.get(player).team);
             case ENDING:
             case TUTORIAL:
