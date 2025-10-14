@@ -67,7 +67,11 @@ public class PL_GameManager implements Listener
         world.setGameRule(GameRule.KEEP_INVENTORY, false);
         world.setDifficulty(Difficulty.PEACEFUL);
         for (Entity entity : world.getEntities()) if (!(entity instanceof Player) && !(entity instanceof ItemFrame)) entity.remove();   
-        for(Player player : Bukkit.getOnlinePlayers()) PL_LobbyManager.GiveBooks(player);
+        for(Player player : Bukkit.getOnlinePlayers()) 
+        {
+            PL_LobbyManager.GiveBooks(player);
+            player.setGameMode(GameMode.SURVIVAL);
+        }
     }
 
     public void SetDynamicBlocks()
