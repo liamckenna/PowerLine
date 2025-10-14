@@ -19,6 +19,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -450,19 +451,34 @@ public class PL_LobbyManager implements Listener
         }
     }
 
-        @EventHandler
+    @EventHandler
+    public void onItemFrameBreak(HangingBreakByEntityEvent event)
+    {
+        switch (PL_GameManager.gm.match.status)
+        {
+            case WAITING:
+            case STARTING:
+            case PLAYING:
+            case ENDING:
+            if (event.getEntity() instanceof ItemFrame frame) event.setCancelled(true);
+            break;
+            case DEBUG:
+            break;
+            default:
+            break;
+        }
+    }
+
+    @EventHandler
     public void onEntityDamage(EntityDamageByEntityEvent event)
     {
         switch (PL_GameManager.gm.match.status)
         {
             case WAITING:
-            LeftClickItemFrame(event);
-            break;
             case STARTING:
-            break;
             case PLAYING:
-            break;
             case ENDING:
+            LeftClickItemFrame(event);
             break;
             case DEBUG:
             break;
@@ -755,7 +771,9 @@ public class PL_LobbyManager implements Listener
             {
                 ItemStack hoe = new ItemStack(Material.WOODEN_HOE, 1);
                 player.getInventory().setItem(0, hoe);
+                SpawnTestRedstone();
             }
+            
         }
         else if (PL_Helpers.CompareLocations(loc, PL_GameManager.gm.lobby.iron_hoe.location))
         {
@@ -764,6 +782,7 @@ public class PL_LobbyManager implements Listener
             {
                 ItemStack hoe = new ItemStack(Material.IRON_HOE, 1);
                 player.getInventory().setItem(0, hoe);
+                SpawnTestRedstone();
             }
         }
         else if (PL_Helpers.CompareLocations(loc, PL_GameManager.gm.lobby.gold_hoe.location))
@@ -773,6 +792,7 @@ public class PL_LobbyManager implements Listener
             {
                 ItemStack hoe = new ItemStack(Material.GOLDEN_HOE, 1);
                 player.getInventory().setItem(0, hoe);
+                SpawnTestRedstone();
             }
         }
         else if (PL_Helpers.CompareLocations(loc, PL_GameManager.gm.lobby.diamond_hoe.location))
@@ -782,6 +802,7 @@ public class PL_LobbyManager implements Listener
             {
                 ItemStack hoe = new ItemStack(Material.DIAMOND_HOE, 1);
                 player.getInventory().setItem(0, hoe);
+                SpawnTestRedstone();
             }
         }
         else if (PL_Helpers.CompareLocations(loc, PL_GameManager.gm.lobby.join_team_a.location))
