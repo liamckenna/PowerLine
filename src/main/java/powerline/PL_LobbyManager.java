@@ -438,13 +438,10 @@ public class PL_LobbyManager implements Listener
         switch (PL_GameManager.gm.match.status)
         {
             case WAITING:
-            RightClickItemFrame(event);
-            break;
             case STARTING:
-            break;
             case PLAYING:
-            break;
             case ENDING:
+            RightClickItemFrame(event);
             break;
             case DEBUG:
             break;
