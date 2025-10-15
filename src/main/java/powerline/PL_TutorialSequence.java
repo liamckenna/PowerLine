@@ -22,21 +22,22 @@ import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Color;
 
-public class PL_TutorialSequence implements Listener
-{
+public class PL_TutorialSequence implements Listener {
     private final Plugin plugin;
     public PL_Location current_spot;
-    public PL_TutorialSequence(Plugin plugin) { this.plugin = plugin; current_spot = null; }
 
-    public void PlayTutorial()
-    {
+    public PL_TutorialSequence(Plugin plugin) {
+        this.plugin = plugin;
+        current_spot = null;
+    }
+
+    public void PlayTutorial() {
         PL_GameManager.gm.match.status = PL_MatchStatus.TUTORIAL;
-        World world = Bukkit.getWorld("powerline");
+        World world = Bukkit.getWorlds().get(0);
         world.setStorm(false);
         world.setThundering(false);
         world.setTime(1000);
-        for (Player player : Bukkit.getOnlinePlayers()) 
-        {
+        for (Player player : Bukkit.getOnlinePlayers()) {
             PL_FreezeManager.Freeze(player);
             player.setGameMode(GameMode.SPECTATOR);
             player.sendTitle("Welcome to PowerLine!", "", 0, 80, 20);
@@ -51,7 +52,8 @@ public class PL_TutorialSequence implements Listener
         current_delay += 6;
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            SendActionBar(7, "Players will work together building redstone paths to gain an advantage and win the match.");
+            SendActionBar(7,
+                    "Players will work together building redstone paths to gain an advantage and win the match.");
         }, (long) current_delay * 20L);
         current_delay += 7;
 
@@ -74,7 +76,8 @@ public class PL_TutorialSequence implements Listener
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             PL_PowerManager.TurnOffTower();
-            SendActionBar(7, "If your connection to the tower is severed, your opponent's ability to respawn will return.");
+            SendActionBar(7,
+                    "If your connection to the tower is severed, your opponent's ability to respawn will return.");
         }, (long) current_delay * 20L);
         current_delay += 7;
 
@@ -109,14 +112,16 @@ public class PL_TutorialSequence implements Listener
         current_delay += 5;
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            for (Player player : Bukkit.getOnlinePlayers()) player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.2f, 1.0f);
-            Item item = world.dropItem((new PL_Location(-1023.5f, -44, -189.5f)).location, new ItemStack(Material.APPLE));
+            for (Player player : Bukkit.getOnlinePlayers())
+                player.playSound(player.getLocation(), Sound.ENTITY_ITEM_PICKUP, 0.2f, 1.0f);
+            Item item = world.dropItem((new PL_Location(-1023.5f, -44, -189.5f)).location,
+                    new ItemStack(Material.APPLE));
             item.setVelocity(new org.bukkit.util.Vector(0, 0, 0));
         }, (long) (current_delay - 2) * 20L);
-        
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            SendActionBar(6, "When first powered, you have the option to choose what resource that generator will produce.");
+            SendActionBar(6,
+                    "When first powered, you have the option to choose what resource that generator will produce.");
         }, (long) current_delay * 20L);
         current_delay += 6;
 
@@ -126,7 +131,8 @@ public class PL_TutorialSequence implements Listener
         current_delay += 5;
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            SendActionBar(6, "Also when powered, you can right click the generator's lamp to change its produced resource.");
+            SendActionBar(6,
+                    "Also when powered, you can right click the generator's lamp to change its produced resource.");
         }, (long) current_delay * 20L);
         current_delay += 6;
 
@@ -147,43 +153,41 @@ public class PL_TutorialSequence implements Listener
         current_delay += 4;
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            
+
             Firework fw = world.spawn((new PL_Location(-1025.5f, -30, -194.5f)).location, Firework.class);
             FireworkMeta meta = fw.getFireworkMeta();
 
             FireworkEffect effect = FireworkEffect.builder()
-                .flicker(true)
-                .withColor(Color.AQUA)
-                .withFade(Color.WHITE)
-                .with(FireworkEffect.Type.BALL_LARGE)
-                .trail(true)
-                .build();
+                    .flicker(true)
+                    .withColor(Color.AQUA)
+                    .withFade(Color.WHITE)
+                    .with(FireworkEffect.Type.BALL_LARGE)
+                    .trail(true)
+                    .build();
 
             meta.addEffect(effect);
             meta.setPower(0);
             fw.setFireworkMeta(meta);
 
-            
         }, (long) (current_delay - 2) * 20L);
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            
+
             Firework fw2 = world.spawn((new PL_Location(-1045.5f, -41, -189.5f)).location, Firework.class);
             FireworkMeta meta2 = fw2.getFireworkMeta();
 
             FireworkEffect effect2 = FireworkEffect.builder()
-                .flicker(true)
-                .withColor(Color.AQUA)
-                .withFade(Color.WHITE)
-                .with(FireworkEffect.Type.BALL_LARGE)
-                .trail(true)
-                .build();
+                    .flicker(true)
+                    .withColor(Color.AQUA)
+                    .withFade(Color.WHITE)
+                    .with(FireworkEffect.Type.BALL_LARGE)
+                    .trail(true)
+                    .build();
 
             meta2.addEffect(effect2);
             meta2.setPower(0);
             fw2.setFireworkMeta(meta2);
         }, (long) (current_delay - 1.75f) * 20L);
-
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             SendActionBar(4, "Two level II generators:");
@@ -191,17 +195,17 @@ public class PL_TutorialSequence implements Listener
         current_delay += 4;
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            
+
             Firework fw = world.spawn((new PL_Location(-1042.5f, -30, -156.5f)).location, Firework.class);
             FireworkMeta meta = fw.getFireworkMeta();
 
             FireworkEffect effect = FireworkEffect.builder()
-                .flicker(true)
-                .withColor(Color.AQUA)
-                .withFade(Color.WHITE)
-                .with(FireworkEffect.Type.BALL_LARGE)
-                .trail(true)
-                .build();
+                    .flicker(true)
+                    .withColor(Color.AQUA)
+                    .withFade(Color.WHITE)
+                    .with(FireworkEffect.Type.BALL_LARGE)
+                    .trail(true)
+                    .build();
 
             meta.addEffect(effect);
             meta.setPower(0);
@@ -215,19 +219,17 @@ public class PL_TutorialSequence implements Listener
             FireworkMeta meta2 = fw2.getFireworkMeta();
 
             FireworkEffect effect2 = FireworkEffect.builder()
-                .flicker(true)
-                .withColor(Color.AQUA)
-                .withFade(Color.WHITE)
-                .with(FireworkEffect.Type.BALL_LARGE)
-                .trail(true)
-                .build();
+                    .flicker(true)
+                    .withColor(Color.AQUA)
+                    .withFade(Color.WHITE)
+                    .with(FireworkEffect.Type.BALL_LARGE)
+                    .trail(true)
+                    .build();
 
             meta2.addEffect(effect2);
             meta2.setPower(0);
             fw2.setFireworkMeta(meta2);
         }, (long) (current_delay - 1.75f) * 20L);
-
-
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             SendActionBar(4, "And two level III generators:");
@@ -235,17 +237,17 @@ public class PL_TutorialSequence implements Listener
         current_delay += 4;
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            
+
             Firework fw = world.spawn((new PL_Location(-1066.5f, -29, -156.5f)).location, Firework.class);
             FireworkMeta meta = fw.getFireworkMeta();
 
             FireworkEffect effect = FireworkEffect.builder()
-                .flicker(true)
-                .withColor(Color.AQUA)
-                .withFade(Color.WHITE)
-                .with(FireworkEffect.Type.BALL_LARGE)
-                .trail(true)
-                .build();
+                    .flicker(true)
+                    .withColor(Color.AQUA)
+                    .withFade(Color.WHITE)
+                    .with(FireworkEffect.Type.BALL_LARGE)
+                    .trail(true)
+                    .build();
 
             meta.addEffect(effect);
             meta.setPower(0);
@@ -254,17 +256,17 @@ public class PL_TutorialSequence implements Listener
         }, (long) (current_delay - 2) * 20L);
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            
+
             Firework fw2 = world.spawn((new PL_Location(-1067.5f, -27, -194.5f)).location, Firework.class);
             FireworkMeta meta2 = fw2.getFireworkMeta();
 
             FireworkEffect effect2 = FireworkEffect.builder()
-                .flicker(true)
-                .withColor(Color.AQUA)
-                .withFade(Color.WHITE)
-                .with(FireworkEffect.Type.BALL_LARGE)
-                .trail(true)
-                .build();
+                    .flicker(true)
+                    .withColor(Color.AQUA)
+                    .withFade(Color.WHITE)
+                    .with(FireworkEffect.Type.BALL_LARGE)
+                    .trail(true)
+                    .build();
 
             meta2.addEffect(effect2);
             meta2.setPower(0);
@@ -272,12 +274,14 @@ public class PL_TutorialSequence implements Listener
         }, (long) (current_delay - 1.75f) * 20L);
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            SendActionBar(6, "Level III generators are the hardest to reach but will produce the most valuable resources.");
+            SendActionBar(6,
+                    "Level III generators are the hardest to reach but will produce the most valuable resources.");
         }, (long) current_delay * 20L);
         current_delay += 6;
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            SendActionBar(5, "Level I generators are closest to your power source, and level II generators sit in-between.");
+            SendActionBar(5,
+                    "Level I generators are closest to your power source, and level II generators sit in-between.");
         }, (long) current_delay * 20L);
         current_delay += 5;
 
@@ -308,21 +312,22 @@ public class PL_TutorialSequence implements Listener
         current_delay += 4;
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            SendActionBar(5, "Redstone is the most valuable resource of them all, so fight hard for control of the center!");
+            SendActionBar(5,
+                    "Redstone is the most valuable resource of them all, so fight hard for control of the center!");
         }, (long) current_delay * 20L);
         current_delay += 5;
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            SendActionBar(6, "All generators, redstone included, produce resources more frequently as the game goes on.");
+            SendActionBar(6,
+                    "All generators, redstone included, produce resources more frequently as the game goes on.");
         }, (long) current_delay * 20L);
         current_delay += 6;
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            SendActionBar(6, "Resource generation rate increases every 5 minutes, upping the ante throughout the match.");
+            SendActionBar(6,
+                    "Resource generation rate increases every 5 minutes, upping the ante throughout the match.");
         }, (long) current_delay * 20L);
         current_delay += 6;
-
-
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             SendActionBar(5, "Redstone Wire and repeaters take longer to break than in normal Minecraft.");
@@ -345,7 +350,8 @@ public class PL_TutorialSequence implements Listener
         current_delay += 4;
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            SendActionBar(5, "Combined with the increased mining time, it's best to be careful when placing your redstone.");
+            SendActionBar(5,
+                    "Combined with the increased mining time, it's best to be careful when placing your redstone.");
         }, (long) current_delay * 20L);
         current_delay += 5;
 
@@ -372,7 +378,8 @@ public class PL_TutorialSequence implements Listener
         current_delay += 4;
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            SendActionBar(5, "Among other restrictions, there is no way to create power (e.g. redstone torches, etc.).");
+            SendActionBar(5,
+                    "Among other restrictions, there is no way to create power (e.g. redstone torches, etc.).");
         }, (long) current_delay * 20L);
         current_delay += 5;
 
@@ -386,18 +393,16 @@ public class PL_TutorialSequence implements Listener
         }, (long) current_delay * 20L);
         current_delay += 3;
 
-        Bukkit.getScheduler().runTaskLater(plugin, () ->
-        {
-            for (Player player : Bukkit.getOnlinePlayers()) player.sendActionBar(text("")); 
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            for (Player player : Bukkit.getOnlinePlayers())
+                player.sendActionBar(text(""));
             EndTutorial();
         }, (long) current_delay * 20L);
-        
+
     }
 
-    public void EndTutorial()
-    {
-        for (Player player : Bukkit.getOnlinePlayers())
-        {
+    public void EndTutorial() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
             PL_FreezeManager.Unfreeze(player);
             player.teleport(PL_GameManager.gm.lobby.spawn.location);
             player.setGameMode(GameMode.SURVIVAL);
@@ -407,35 +412,31 @@ public class PL_TutorialSequence implements Listener
         PL_Helpers.WipeItemEntities();
     }
 
-    public void TeleportWithSound(PL_Location location)
-    {
-        for (Player player : Bukkit.getOnlinePlayers())
-        {
+    public void TeleportWithSound(PL_Location location) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
             player.teleport(location.location);
             player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 0.5f, 1.0f);
         }
         current_spot = location;
     }
 
-    public void SendActionBar(float seconds, String message)
-    {
-        for (Player player : Bukkit.getOnlinePlayers()) player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 0.2f, 1.0f);
-        new BukkitRunnable() 
-        {
+    public void SendActionBar(float seconds, String message) {
+        for (Player player : Bukkit.getOnlinePlayers())
+            player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 0.2f, 1.0f);
+        new BukkitRunnable() {
             int ticks = 0;
-            int duration = (int)(seconds * 20);
+            int duration = (int) (seconds * 20);
 
             @Override
-            public void run() 
-            {
-                if (ticks >= duration) 
-                {
+            public void run() {
+                if (ticks >= duration) {
                     cancel();
                     return;
                 }
-                for (Player player : Bukkit.getOnlinePlayers()) player.sendActionBar(text(message));        
+                for (Player player : Bukkit.getOnlinePlayers())
+                    player.sendActionBar(text(message));
                 ticks++;
             }
-        }.runTaskTimer(plugin, 0L, 1L); 
+        }.runTaskTimer(plugin, 0L, 1L);
     }
 }
